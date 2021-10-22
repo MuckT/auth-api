@@ -2,7 +2,7 @@
 
 const base64 = require('base-64')
 
-const acl = (capability) => (req, next)=> {
+const acl = (capability) => (req, res, next)=> {
   try {
     req.user.capabilities.includes(capability) 
       ? next()
@@ -12,11 +12,11 @@ const acl = (capability) => (req, next)=> {
   }
 }
 
-const basic = (users) = async(req, res, next) => {
-  if (!req.headers.authorization) { throw new Error('Auth Error') }
-  let basic = req.headers.authorization.split(' ')[1]
-  let [ username, pass ] = base64.decode(basic).split(':')
+const basic = (users) => async(req, res, next) => {
   try {
+    if (!req.headers.authorization) { throw new Error('Auth Error') }
+    let basic = req.headers.authorization.split(' ')[1]
+    let [ username, pass ] = base64.decode(basic).split(':')
     req.user = await users.authenticateBasic(username, pass)
   } catch (e) {
     res.status(403).send('Invalid Login')
