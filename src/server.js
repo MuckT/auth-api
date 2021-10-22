@@ -2,7 +2,6 @@
 
 // 3rd Party Resources
 const express = require('express')
-const cors = require('cors')
 
 // Esoteric Resources
 const errorHandler = require('./error-handlers/500')
@@ -13,8 +12,6 @@ const authRoutes = require('./routes/auth')
 const app = express()
 
 // App Level Middleware
-app.use(cors())
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
