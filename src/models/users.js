@@ -24,7 +24,7 @@ const userModel = (sequelize, DataTypes) => {
     token: {
       type: DataTypes.VIRTUAL,
       get() {
-        return jwt.sign({ username: this.username }, SECRET)
+        return jwt.sign({ username: this.username }, SECRET, { expiresIn: '1h' })
       },
       set(tokenObj) {
         let token = jwt.sign(tokenObj, SECRET)
@@ -59,10 +59,10 @@ const userModel = (sequelize, DataTypes) => {
 
   model.authenticateToken = async function (token) {
     try {
-      const parsedToken = jwt.verify(token, process.env.SECRET, { expiresIn: '1h' })
+      const parsedToken = jwt.verify(token, process.env.SECRET)
       const user = this.findOne({ username: parsedToken.username })
       if (user) { return user }
-      throw new Error("User Not Found")
+      throw new Error('User Not Found')
     } catch (e) {
       throw new Error(e.message)
     }

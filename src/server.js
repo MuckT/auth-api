@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }))
 // Bad route
 app.get('/bad', (req, res, next) => {
   next('you\'ve messed up')
-});
+})
 
 // Routes
 app.use(authRoutes)
