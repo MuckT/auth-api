@@ -15,6 +15,11 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// Proof of life Route
+app.get('/', (req, res) => {
+  res.status(200).send('Hello World!')
+})
+
 // Bad route
 app.get('/bad', (req, res, next) => {
   next('you\'ve messed up')
