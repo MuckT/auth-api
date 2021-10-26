@@ -10,7 +10,8 @@
     "init:config": "sequelize init:config",
     "db:create": "sequelize db:create",
     "test-watch": "jest --watchAll",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "ci:test": "jest --coverage --verbose --silent --runInBand"
   },
   "repository": {
     "type": "git",
